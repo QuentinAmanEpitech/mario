@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
 #include "map.h"
 
-void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH])
+void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH], Player player)
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
+
+    SDL_Rect rect;
 
     for (int i = 0; i < 22; i++)
     {
@@ -12,8 +14,6 @@ void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH])
         {
             if (defaultMap[i][j] == '1')
             {
-                SDL_Log("%c", defaultMap[i][j]);
-                SDL_Rect rect;
                 rect.h = 32;
                 rect.w = 32;
                 rect.x = j * 32;
@@ -24,6 +24,13 @@ void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH])
             }
         }
     }
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    rect.x = player.x * CELLSIZE;
+    rect.y = player.y * CELLSIZE;
+
+    SDL_RenderFillRect(renderer, &rect);
+
     SDL_RenderPresent(renderer);
 }
 

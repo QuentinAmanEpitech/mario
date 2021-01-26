@@ -13,6 +13,8 @@ int main(int argc, char const *argv[])
 
     Player player;
 
+    placePlayer(&player, map.defaultMap);
+
     if (initSDL() == -1)
         goto Quit;
 
@@ -49,7 +51,7 @@ int main(int argc, char const *argv[])
 
         if (refreshRate >= (1000 / 16))
         {
-            updateMap(pRenderer, map.defaultMap);
+            updateMap(pRenderer, map.defaultMap, player);
             refreshRate = 0;
         }
     }

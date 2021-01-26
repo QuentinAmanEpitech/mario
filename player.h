@@ -1,5 +1,6 @@
 #ifndef DEF_PLAYER
 #define DEF_PLAYER
+#include "map.h"
 
 typedef struct Player Player;
 
@@ -9,5 +10,7 @@ struct Player
     int y;
     int acceleration;
 };
+
+void placePlayer(Player *player, char defaultMap[22][LEVEL_MAX_LENGTH]);
 
 #endif
