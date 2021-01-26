@@ -43,6 +43,9 @@ int main(int argc, char const *argv[])
             case SDL_QUIT:
                 playGame = 0;
                 break;
+            case SDL_KEYDOWN:
+                movePlayer(event.key.keysym.sym, &player);
+                break;
             }
         }
         LAST = NOW;

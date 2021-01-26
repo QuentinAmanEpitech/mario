@@ -26,8 +26,8 @@ void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH], Pl
     }
 
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    rect.x = player.x * CELLSIZE;
-    rect.y = player.y * CELLSIZE;
+    rect.x = player.x;
+    rect.y = player.y;
 
     SDL_RenderFillRect(renderer, &rect);
 

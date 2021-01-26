@@ -13,13 +13,32 @@ void placePlayer(Player *player, char defaultMap[22][LEVEL_MAX_LENGTH])
             if (defaultMap[i][column] == '0')
             {
                 hasFoundPosition = 1;
-                player->x = column;
-                player->y = i;
+                player->x = column * CELLSIZE;
+                player->y = i * CELLSIZE;
                 break;
             }
         }
 
         if (hasFoundPosition == 0)
             column++;
+    }
+}
+
+void movePlayer(char direction, Player *player)
+{
+    switch (direction)
+    {
+    case 'd':
+        player->x += 10;
+        break;
+    case 's':
+        player->y += 10;
+        break;
+    case 'q':
+        player->x -= 10;
+        break;
+    case 'z':
+        player->y -= 10;
+        break;
     }
 }

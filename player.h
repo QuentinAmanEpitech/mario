@@ -12,5 +12,6 @@ struct Player
 };
 
 void placePlayer(Player *player, char defaultMap[22][LEVEL_MAX_LENGTH]);
+void movePlayer(char direction, Player *player);
 
 #endif
