@@ -4,6 +4,7 @@
 #include "game.h"
 #include "map.h"
 #include "player.h"
+#include "sprites.h"
 
 int main(int argc, char const *argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char const *argv[])
         goto Quit;
 
     Player player;
+    Sprites sprites;
 
     placePlayer(&player, map.defaultMap);
 
@@ -28,6 +30,7 @@ int main(int argc, char const *argv[])
     if (!pRenderer)
         goto Quit;
 
+    loadSprites(&sprites, pRenderer);
     int playGame = 1;
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
@@ -54,7 +57,7 @@ int main(int argc, char const *argv[])
 
         if (refreshRate >= (1000 / 16))
         {
-            updateMap(pRenderer, map.defaultMap, player);
+            updateMap(pRenderer, map.defaultMap, player, sprites);
             refreshRate = 0;
         }
     }
@@ -64,6 +67,10 @@ Quit:
         SDL_DestroyRenderer(pRenderer);
     if (!pWindow)
         SDL_DestroyWindow(pWindow);
+    SDL_DestroyTexture(sprites.brick);
+    SDL_DestroyTexture(sprites.sky);
+    SDL_DestroyTexture(sprites.player);
+    SDL_DestroyTexture(sprites.chance);
     SDL_Quit();
     return EXIT_SUCCESS;
 }

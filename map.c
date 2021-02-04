@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include "map.h"
 
-void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH], Player player)
+void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH], Player player, Sprites sprites)
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -12,24 +12,32 @@ void updateMap(SDL_Renderer *renderer, char defaultMap[22][LEVEL_MAX_LENGTH], Pl
     {
         for (int j = 0; j < strlen(defaultMap[i]); j++)
         {
-            if (defaultMap[i][j] == '1')
-            {
-                rect.h = 32;
-                rect.w = 32;
-                rect.x = j * 32;
-                rect.y = i * 32;
+            rect.h = 32;
+            rect.w = 32;
+            rect.x = j * 32;
+            rect.y = i * 32;
 
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                SDL_RenderFillRect(renderer, &rect);
+            switch (defaultMap[i][j])
+            {
+            case '0':
+                SDL_RenderCopy(renderer, sprites.sky, NULL, &rect);
+                break;
+            case '1':
+                SDL_RenderCopy(renderer, sprites.brick, NULL, &rect);
+                break;
+            case '2':
+                SDL_RenderCopy(renderer, sprites.chance, NULL, &rect);
+                break;
+            default:
+                break;
             }
         }
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     rect.x = player.x;
     rect.y = player.y;
 
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderCopy(renderer, sprites.player, NULL, &rect);
 
     SDL_RenderPresent(renderer);
 }
